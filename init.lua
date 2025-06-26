@@ -1,4 +1,4 @@
-i--[[
+--[[
       - https://learnxinyminutes.com/docs/lua/
 
     After understanding a bit more about Lua, you can use `:help lua-guide` as a
@@ -10,6 +10,8 @@ Kickstart Guide:
 
     MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
     which is very useful when you're not exactly sure of what you're looking for.
+]]
+--
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -18,7 +20,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -237,7 +239,7 @@ require('lazy').setup({
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = true },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -334,8 +336,6 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -468,6 +468,17 @@ require('lazy').setup({
             },
           },
         },
+        -- ts_ls = {
+        --   cmd = { 'typescript-language-server', '--stdio' },
+        --   filetypes = {
+        --     'javascript',
+        --     'javascriptreact',
+        --     'javascript.jsx',
+        --     'typescript',
+        --     'typescriptreact',
+        --     'typescript.tsx',
+        --   },
+        -- },
       }
       -- To check the current status of installed tools and/or manually install
       --    :Mason
@@ -575,7 +586,7 @@ require('lazy').setup({
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono',
+        nerd_font_variant = 'normal',
       },
 
       completion = {
@@ -649,7 +660,21 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'rust',
+        'typescript',
+      },
       auto_install = true,
       highlight = {
         enable = true,
@@ -698,6 +723,6 @@ require('lazy').setup({
 })
 
 vim.notify = require 'notify'
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
